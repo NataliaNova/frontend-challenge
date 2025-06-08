@@ -1,69 +1,54 @@
-# 🎧 DevSoulify – Frontend Challenge
+# React + TypeScript + Vite
 
-Welcome! This is the official frontend technical challenge for developers who want to join **DevSoul**.  
-Your mission is to build a production-ready web app using the [Spotify Web API](https://developer.spotify.com/documentation/web-api/).
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-You'll be creating a beautiful music feed UI using real data from Spotify: new releases, featured playlists and music genres.
+Currently, two official plugins are available:
 
----
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 🚀 First Step
+## Expanding the ESLint configuration
 
-Choose **one** of the following technologies to develop the challenge:
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- React
-- Angular (version X or above)
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-Then, fork this repository and start coding your solution.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
----
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## ✨ What We’ll Look For
-
-- ✅ A clean and scalable **architecture**
-- ✅ Use of **SOLID principles**
-- ✅ Thoughtful **code structure** and modularity
-- ✅ Presence of **unit tests**
-- ✅ Meaningful and atomic **Git commits**
-- ✅ A **working online demo**
-- ✅ A good **UX/UI**
-
-Bonus points if your code is easy to read and feels production-ready.
-
----
-
-## 🧪 Requirements
-
-Your app must:
-
-1. **Authenticate with Spotify**
-   - Use the [Implicit Grant Flow](https://developer.spotify.com/documentation/web-api/tutorials/implicit-flow) or any secure method to get an access token.
-   - You’ll need to create an app on the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
-
-2. **Display this content** from the Spotify API:
-   - **Released This Week**  
-     → `GET /browse/new-releases`
-   - **Featured Playlists**  
-     → `GET /browse/featured-playlists`
-
-3. Have a responsive and engaging UI:
-   - Feed-style layout
-   - Cards with album/playlist images, titles, and subtitles
-   - A clean grid layout that works well on both mobile and desktop  
-     → Ideally, implement **infinite scroll** if the API supports pagination
-
----
-
-## Example Images
-![Screenshot 2025-06-06 at 00 49 38](https://github.com/user-attachments/assets/95bb46c6-9cda-49d9-b544-57303773a9af)
-
----
-
-## 📦 Project Setup
-
-Your app should be able to run on **any machine** by following these steps:
-
-```bash
-npm install
-npm test
-npm start
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
