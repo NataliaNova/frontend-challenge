@@ -5,7 +5,22 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+       "jsx": "react-jsx",
     "isolatedModules": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "types": ["jest", "node"]
+  },
+   "exclude": ["node_modules", 
+   "src/**/*.test.ts", 
+   "src/**/*.test.tsx",
+  "src/setupTests.ts",
+    "src/mocks"],
+    "include": [
+    "src",
+    "vite-env.d.ts"
+  ]
+   
+
+    
+
 }
