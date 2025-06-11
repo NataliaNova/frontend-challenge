@@ -41,6 +41,7 @@ export async function redirectToSpotifyAuth() {
  
   const codeChallenge = await generateCodeChallenge(codeVerifier);
   console.log('Generado code_challenge:', codeChallenge);
+  
 
 
   const url =
