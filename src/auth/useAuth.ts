@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { REDIRECT_URI } from '../config';
 
 
 export function useAuth() {
