@@ -27,7 +27,7 @@ const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const SCOPE = "user-read-private user-read-email";
 
 export function handleSessionExpired() {
-  localStorage.clear();
+  sessionStorage.clear();
   alert("Tu sesión ha expirado. Por favor inicia sesión de nuevo.");
   window.location.href = "/login";
 }
@@ -36,7 +36,7 @@ export function handleSessionExpired() {
 export async function redirectToSpotifyAuth() {
   const codeVerifier = generateRandomString(64);
   console.log('Guardando code_verifier:', codeVerifier);
-  localStorage.setItem("code_verifier", codeVerifier);
+  sessionStorage.setItem("code_verifier", codeVerifier);
 
  
   const codeChallenge = await generateCodeChallenge(codeVerifier);
@@ -60,7 +60,7 @@ export async function redirectToSpotifyAuth() {
 
 
 export async function exchangeToken(code: string): Promise<string> {
-  const codeVerifier = localStorage.getItem("code_verifier");
+  const codeVerifier = sessionStorage.getItem("code_verifier");
   console.log('Recuperando code_verifier:', codeVerifier);
 
   if (!codeVerifier) throw new Error("Code verifier not found");
@@ -88,7 +88,7 @@ export async function exchangeToken(code: string): Promise<string> {
 
   if (!data.access_token) throw new Error("Token exchange failed");
 
-  localStorage.removeItem("code_verifier");
+  sessionStorage.removeItem("code_verifier");
 
   return data.access_token;
 }

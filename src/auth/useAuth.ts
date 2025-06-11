@@ -5,7 +5,7 @@ export function useAuth() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("spotify_token");
+    const storedToken = sessionStorage.getItem("spotify_token");
     setToken(storedToken);
   }, []);
 

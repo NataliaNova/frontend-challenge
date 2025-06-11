@@ -4,9 +4,9 @@ export function useLogout() {
   const navigate = useNavigate();
 
   function logout() {
-    localStorage.removeItem("spotify_token");
-    localStorage.removeItem("code_verifier"); 
-      sessionStorage.clear();
+    sessionStorage.removeItem("spotify_token");
+    sessionStorage.removeItem("code_verifier"); 
+    sessionStorage.clear();
     navigate("/login");
   }
 
