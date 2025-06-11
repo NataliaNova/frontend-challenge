@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getNewReleases, getNextReleases } from "../api/spotifyApi";
 import { motion } from "framer-motion";
+import { useLogout } from "../auth/useLogout"; 
 
 type Album = {
   id: string;
@@ -31,6 +32,7 @@ export default function NewReleases({ token }: Props) {
   const [nextUrl, setNextUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const logout = useLogout();
 
   const loaderRef = useRef<HTMLDivElement>(null);
 
@@ -88,9 +90,46 @@ console.log("Token recibido en NewReleases:", token);
 
   return (
   <>
-    <header className="sticky top-0 z-50 bg-gray-900 text-white text-center text-2xl font-bold tracking-wide py-4 shadow-md">
-       New Releases This Week
-    </header>
+<header className="
+  sticky top-0 z-50 bg-gray-900 text-white 
+  flex flex-col sm:flex-row justify-between items-center px-6 py-4 shadow-md
+">
+  <h1 className="text-2xl font-bold tracking-wide">New Releases This Week</h1>
+<div className="flex justify-center w-full sm:w-auto mt-4 sm:mt-0">
+    <motion.button
+      onClick={logout}
+      className="
+        flex items-center justify-center
+        text-white border border-white rounded 
+        px-3 py-1 text-sm font-semibold
+        transition-all duration-150
+        sm:px-4 sm:py-2 sm:text-base 
+        md:px-5 md:py-2 md:text-lg
+        mx-auto
+      "
+      whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
+      <span className="block sm:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={3}
+          className="w-6 h-6"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </span>
+      <span className="hidden sm:block">Cerrar sesión</span>
+    </motion.button>
+  </div>
+</header>
+
 
     <motion.div
       className="p-6 bg-black text-white grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"

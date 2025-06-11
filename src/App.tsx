@@ -1,18 +1,21 @@
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Login from "./pages/Login";
 import NewReleases from "./pages/NewReleases";
 import { exchangeToken } from "./auth/authService";
 
 function CallbackHandler() {
   const navigate = useNavigate();
+  const hasExchanged = useRef(false); // 👈 Esto es la clave
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     console.log("Código recibido en callback:", code);
 
-    if (code) {
+    // Solo intentamos hacer el exchange si no lo hemos hecho ya
+    if (code && !hasExchanged.current) {
+      hasExchanged.current = true; // Marcamos como ya usado
       exchangeToken(code)
         .then((accessToken) => {
           localStorage.setItem("spotify_token", accessToken);
@@ -22,7 +25,7 @@ function CallbackHandler() {
           console.error("Token exchange failed", err);
           navigate("/login");
         });
-    } else {
+    } else if (!code) {
       navigate("/login");
     }
   }, [navigate]);
@@ -30,7 +33,7 @@ function CallbackHandler() {
   return <p className="text-white p-4">⏳ Autenticando con Spotify...</p>;
 }
 
- function useToken() {
+function useToken() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,10 +43,9 @@ function CallbackHandler() {
   }, []);
 
   return { token };
-} 
+}
 
-
- export default function App() {
+export default function App() {
   const { token } = useToken();
 
   return (
@@ -57,9 +59,5 @@ function CallbackHandler() {
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
-  ); 
- 
+  );
 }
-
-
-
