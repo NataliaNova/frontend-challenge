@@ -33,7 +33,7 @@ export function handleSessionExpired() {
 }
 
 
-export async function redirectToSpotifyAuth() {
+/* export async function redirectToSpotifyAuth() {
   const codeVerifier = generateRandomString(64);
   console.log('Guardando code_verifier:', codeVerifier);
   sessionStorage.setItem("code_verifier", codeVerifier);
@@ -89,6 +89,63 @@ export async function exchangeToken(code: string): Promise<string> {
   if (!data.access_token) throw new Error("Token exchange failed");
 
   sessionStorage.removeItem("code_verifier");
+
+  return data.access_token;
+}
+ */
+
+// ... todo tu código arriba igual
+
+export async function redirectToSpotifyAuth() {
+  const codeVerifier = generateRandomString(64);
+  console.log('Guardando code_verifier:', codeVerifier);
+  localStorage.setItem("code_verifier", codeVerifier);
+
+  const codeChallenge = await generateCodeChallenge(codeVerifier);
+  console.log('Generado code_challenge:', codeChallenge);
+
+  const url =
+    `${AUTH_ENDPOINT}?` +
+    `client_id=${CLIENT_ID}` +
+    `&response_type=code` +
+    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+    `&scope=${encodeURIComponent(SCOPE)}` +
+    `&code_challenge_method=S256` +
+    `&code_challenge=${codeChallenge}`;
+
+  console.log('Redirigiendo a Spotify con URL:', url);
+
+  window.location.href = url;
+}
+
+export async function exchangeToken(code: string): Promise<string> {
+  const codeVerifier = localStorage.getItem("code_verifier");
+  console.log('Recuperando code_verifier:', codeVerifier);
+
+  if (!codeVerifier) throw new Error("Code verifier not found");
+
+  const body = new URLSearchParams({
+    grant_type: "authorization_code",
+    code,
+    redirect_uri: REDIRECT_URI,
+    client_id: CLIENT_ID,
+    code_verifier: codeVerifier,
+  });
+
+  console.log("Enviando body al /api/token:", Object.fromEntries(body.entries()));
+
+  const res = await fetch(TOKEN_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body,
+  });
+
+  const data = await res.json();
+  console.log("Respuesta de Spotify /api/token:", data);
+
+  if (!data.access_token) throw new Error("Token exchange failed");
+
+  localStorage.removeItem("code_verifier");
 
   return data.access_token;
 }
