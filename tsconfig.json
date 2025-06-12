@@ -1,26 +1,19 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
-       "jsx": "react-jsx",
+    "jsx": "react-jsx",
     "isolatedModules": true,
     "esModuleInterop": true,
     "types": ["jest", "node"]
   },
-   "exclude": ["node_modules", 
-   "src/**/*.test.ts", 
-   "src/**/*.test.tsx",
-  "src/setupTests.ts",
-    "src/mocks"],
-    "include": [
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/setupTests.ts",
+    "src/mocks"
+  ],
+  "include": [
     "src",
     "vite-env.d.ts"
-, "api/spotify-token.ts"  ]
-   
-
-    
-
+  ]
 }
