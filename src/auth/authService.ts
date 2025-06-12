@@ -18,7 +18,6 @@ function generateRandomString(length: number): string {
   return Array.from(array, byte => ("0" + byte.toString(16)).slice(-2)).join("");
 }
 
-// ... (funciones utilitarias igual)
 
 const CLIENT_ID = "c178e05302784f728f383d37dc440c49";
 const REDIRECT_URI = "http://127.0.0.1:5173/callback"; 

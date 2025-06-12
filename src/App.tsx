@@ -6,16 +6,15 @@ import { exchangeToken } from "./auth/authService";
 
 function CallbackHandler() {
   const navigate = useNavigate();
-  const hasExchanged = useRef(false); // 👈 Esto es la clave
+  const hasExchanged = useRef(false); 
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     console.log("Código recibido en callback:", code);
 
-    // Solo intentamos hacer el exchange si no lo hemos hecho ya
     if (code && !hasExchanged.current) {
-      hasExchanged.current = true; // Marcamos como ya usado
+      hasExchanged.current = true; 
       exchangeToken(code)
         .then((accessToken) => {
           localStorage.setItem("spotify_token", accessToken);
