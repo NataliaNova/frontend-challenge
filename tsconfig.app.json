@@ -30,5 +30,5 @@
   "src/setupTests.ts",
   "src/mocks"
 ],
-  "include": ["src", "vite-env.d.ts"]
+  "include": ["src", "vite-env.d.ts", "api/spotify-token.ts"]
 }
