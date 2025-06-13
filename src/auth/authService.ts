@@ -18,9 +18,8 @@ function generateRandomString(length: number): string {
   return Array.from(array, byte => ("0" + byte.toString(16)).slice(-2)).join("");
 }
 
-
-const CLIENT_ID = "c178e05302784f728f383d37dc440c49";
-const REDIRECT_URI = "http://127.0.0.1:5173/callback"; 
+const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const SCOPE = "user-read-private user-read-email";
 

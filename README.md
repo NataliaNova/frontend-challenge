@@ -1,54 +1,54 @@
-# React + TypeScript + Vite
+🎧 DevSoulify – Frontend Challenge
+This project is a frontend-only React app using the Spotify Web API to display new music releases and featured playlists.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features:
 
-Currently, two official plugins are available:
+Spotify login (OAuth2 PKCE, no backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Shows “New Releases” and “Featured Playlists” from Spotify
 
-## Expanding the ESLint configuration
+Responsive, clean UI (React + Tailwind CSS)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Logout button
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Unit tests with Jest & Testing Library
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone the repo
+   bash
+   Copiar
+   Editar
+   git clone https://github.com/NataliaNova/frontend-challenge.git
+   cd frontend-challenge
+2. Install dependencies
+   bash
+   Copiar
+   Editar
+   npm install
+3. Set up environment variables
+   Create a .env file in the root with:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+env
+Copiar
+Editar
+VITE_SPOTIFY_CLIENT_ID=your-spotify-client-id
+VITE_REDIRECT_URI=http://127.0.0.1:5173/callback
+Get your Spotify client id at https://developer.spotify.com/dashboard/applications
+
+Add http://127.0.0.1:5173/callback to your Spotify app’s Redirect URIs
+
+4. Run the app locally
+   bash
+   Copiar
+   Editar
+   npm run dev
+   Open http://127.0.0.1:5173 in your browser.
+
+5. Run tests
+   bash
+   Copiar
+   Editar
+   npm test
+   Author
+   Natalia Trujillo – @NataliaNova
