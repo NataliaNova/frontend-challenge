@@ -50,5 +50,6 @@ Add http://127.0.0.1:5173/callback to your Spotify app’s Redirect URIs
    Copiar
    Editar
    npm test
+
    Author
    Natalia Trujillo – @NataliaNova
